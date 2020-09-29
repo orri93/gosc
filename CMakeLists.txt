@@ -6,6 +6,7 @@ project(GosC
   LANGUAGES C CXX)
 
 option(BUILD_TESTS "Build tests" OFF)
+option(BUILD_WITH_EMSCRIPTEN "Build a Web Assembly Library with emscripten" OFF)
 option(BUILD_SHARED_LIBS "Build using shared libraries" OFF)
 option(CLANG_TIDY_FIX_ERRORS
   "Perform fixes with Clang-Tidy even if compilation errors were found" OFF)
@@ -19,6 +20,16 @@ option(GOS_PERLIN "Perlin noise" OFF)
 
 set(GOS_BUILD_NUMBER "0" CACHE STRING "The build number")
 
+set(gos_c_library_target gosc)
+
+if (BUILD_WITH_EMSCRIPTEN)
+  set(gos_c_wasm_library_target goscwasm)
+  set(EMSCRIPTEN_ROOT $ENV{EMSDK}/upstream/emscripten
+    CACHE STRING "Emscripten path")
+  set(CMAKE_TOOLCHAIN_FILE
+    ${EMSCRIPTEN_ROOT}/cmake/Modules/Platform/Emscripten.cmake)
+endif ()
+
 set(TIDY_ARGUMENTS "-checks=*,-clang-analyzer-alpha.* "
   CACHE STRING "Arguments for Clang-Tidy check")
 set(TIDY_FIX_ARGUMENTS "-list-checks=*,-clang-analyzer-alpha.* "
@@ -31,9 +42,12 @@ configure_file(
   "include/gos/version.h"
   @ONLY)
 
+set(gos_c_source_include "${CMAKE_CURRENT_SOURCE_DIR}/include")
+set(gos_c_binary_include "${CMAKE_CURRENT_BINARY_DIR}/include")
+
 list(APPEND gos_c_include
-  "${CMAKE_CURRENT_BINARY_DIR}/include"
-  "${CMAKE_CURRENT_SOURCE_DIR}/include")
+  ${gos_c_source_include}
+  ${gos_c_binary_include})
 
 set(CMAKE_PLATFORM_INDEPENDENT_CODE ON)
 
@@ -46,7 +60,6 @@ list(APPEND gos_experimental_library_public_headers
 
 set(gos_experimental_library_target libgosexperimental)
 
-set(gos_c_library_target gosc)
 list(APPEND gos_c_library_public_header
   "${CMAKE_CURRENT_SOURCE_DIR}/include/gos/line.h"
   "${CMAKE_CURRENT_SOURCE_DIR}/include/gos/types.h"
