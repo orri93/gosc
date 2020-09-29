@@ -1,10 +1,13 @@
 list(APPEND gos_c_library_source
   interpolate.c
   geometry.c
-  perlin.c
   signal.c
   color.c
   noise.c)
+
+if (GOS_PERLIN)
+  list(APPEND gos_c_library_source perlin.c)
+endif (GOS_PERLIN)
 
 list(APPEND gos_c_library_definitions
   GOS_PERLIN_FLOAT

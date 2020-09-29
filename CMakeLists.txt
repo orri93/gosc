@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.8.2)
 project(GosC
   VERSION 1.0.0
   DESCRIPTION "Geirmundur Orri Sigurdsson C Library"
-  LANGUAGES C)
+  LANGUAGES C CXX)
 
 option(BUILD_TESTS "Build tests" OFF)
 option(BUILD_SHARED_LIBS "Build using shared libraries" OFF)
@@ -14,6 +14,8 @@ option(CLANG_TIDY "Perform Clang-Tidy check" OFF)
 
 option(GOS_USE_GTEST_DISCOVER "Use CMake Google Test descovery for unit tests" OFF)
 option(GOS_USE_GTEST_PACKAGE "Use CMake GTest Package for unit tests" OFF)
+
+option(GOS_PERLIN "Perlin noise" OFF)
 
 set(GOS_BUILD_NUMBER "0" CACHE STRING "The build number")
 
@@ -44,7 +46,7 @@ list(APPEND gos_experimental_library_public_headers
 
 set(gos_experimental_library_target libgosexperimental)
 
-set(gos_c_library_target libgos)
+set(gos_c_library_target gosc)
 list(APPEND gos_c_library_public_header
   "${CMAKE_CURRENT_SOURCE_DIR}/include/gos/line.h"
   "${CMAKE_CURRENT_SOURCE_DIR}/include/gos/types.h"
