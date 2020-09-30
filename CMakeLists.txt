@@ -55,11 +55,8 @@ string(TIMESTAMP GOS_CURRENT_YEAR "%Y" UTC)
 set(GOS_COMPANYNAME "Geirmundur Orri Sigurdsson")
 set(GOS_LEGALCOPYRIGHT "Copyright (C) ${GOS_CURRENT_YEAR} ${GOS_COMPANYNAME}")
 
-list(APPEND gos_experimental_library_public_headers
-  "${CMAKE_CURRENT_BINARY_DIR}/include/gos/experimental/version.h")
-
-set(gos_experimental_library_target libgosexperimental)
-
+list(APPEND gos_c_library_public_header
+  "${CMAKE_CURRENT_BINARY_DIR}/include/gos/version.h")
 list(APPEND gos_c_library_public_header
   "${CMAKE_CURRENT_SOURCE_DIR}/include/gos/line.h"
   "${CMAKE_CURRENT_SOURCE_DIR}/include/gos/types.h"
@@ -69,8 +66,7 @@ list(APPEND gos_c_library_public_header
   "${CMAKE_CURRENT_SOURCE_DIR}/include/gos/signal.h"
   "${CMAKE_CURRENT_SOURCE_DIR}/include/gos/mapping.h"
   "${CMAKE_CURRENT_SOURCE_DIR}/include/gos/geometry.h"
-  "${CMAKE_CURRENT_SOURCE_DIR}/include/gos/interpolate.h"
-  "${CMAKE_CURRENT_BINARY_DIR}/include/gos/version.h")
+  "${CMAKE_CURRENT_SOURCE_DIR}/include/gos/interpolate.h")
 
 if(CLANG_TIDY)
   find_program(CLANG_TIDY_EXE
