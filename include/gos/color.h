@@ -4,6 +4,8 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+#include <gos/types.h>
+
 #define GOS_COLOR_GAMMA 0.43
 
 #define GOS_COLOR_MAX_RGB_F 255.0
@@ -19,21 +21,12 @@
 extern "C" {
 #endif
 
-typedef struct gos_color {
-  double a;
-  double b;
-  double c;
-} gos_color;
-
-typedef struct gos_color_rgb {
-  uint8_t r;
-  uint8_t g;
-  uint8_t b;
-} gos_color_rgb;
-
 void gos_color_assign(gos_color* co, double a, double b, double c);
-void gos_color_assign_rgb(gos_color_rgb* co, uint8_t r, uint8_t g, uint8_t b);
-void gos_color_assign_rgb32(gos_color_rgb* co, uint32_t rgb);
+void gos_color_assign_rgb(gos_rgb* co, uint8_t r, uint8_t g, uint8_t b);
+void gos_color_assign_rgb32(gos_rgb* co, uint32_t rgb);
+
+bool gos_color_initialize_rgb_gradient(gos_rgb_gradient* gradient, int size);
+void gos_color_free_rgb_gradient(gos_rgb_gradient* gradient);
 
 double gos_color_min_f(double a, double b, double c);
 double gos_color_max_f(double a, double b, double c);
@@ -52,10 +45,10 @@ double gos_color_s_rgb_i(double x);
 
 void gos_color_s_rgb_fa(gos_color* c, gos_color* i);
 
-void gos_color_s_rgb_ia(gos_color* c, gos_color_rgb* rgb);
+void gos_color_s_rgb_ia(gos_color* c, gos_rgb* rgb);
 
-void gos_color_normalize_rgb(gos_color* normalized, gos_color_rgb* rgb);
-void gos_color_denormalize_rgb(gos_color_rgb* rgb, gos_color* normalized);
+void gos_color_normalize_rgb(gos_color* normalized, gos_rgb* rgb);
+void gos_color_denormalize_rgb(gos_rgb* rgb, gos_color* normalized);
 
 void gos_color_interpolate_linear(
   gos_color* co,
@@ -64,11 +57,18 @@ void gos_color_interpolate_linear(
   double f);
 
 void gos_color_perceptual_steps(
-  gos_color_rgb** crgbo,
-  gos_color_rgb* crgb1,
-  gos_color_rgb* crgb2,
+  gos_rgb* crgbo,
+  gos_rgb* crgb1,
+  gos_rgb* crgb2,
   double gamma,
   int steps);
+
+bool gos_color_create_rgb_gradient(
+  gos_rgb_gradient* gradient,
+  gos_rgb* stop,
+  int* size,
+  int count,
+  double gamma);
 
 void gos_color_rgb_to_hsl(
   uint8_t r, uint8_t g, uint8_t b,

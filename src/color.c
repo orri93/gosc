@@ -11,18 +11,35 @@ void gos_color_assign(gos_color* co, double a, double b, double c) {
   co->b = b;
   co->c = c;
 }
-void gos_color_assign_rgb(gos_color_rgb* co, uint8_t r, uint8_t g, uint8_t b) {
+void gos_color_assign_rgb(gos_rgb* co, uint8_t r, uint8_t g, uint8_t b) {
   assert(co != NULL);
   co->r = r;
   co->g = g;
   co->b = b;
 }
-void gos_color_assign_rgb32(gos_color_rgb* co, uint32_t rgb) {
+void gos_color_assign_rgb32(gos_rgb* co, uint32_t rgb) {
   gos_color_assign_rgb(
     co,
     (rgb & 0xff0000) >> 16,
     (rgb & 0xff00) >> 8,
     rgb & 0xff);
+}
+
+bool gos_color_initialize_rgb_gradient(gos_rgb_gradient* gradient, int size) {
+  bool funres;
+  assert(gradient != NULL);
+  gradient->gradient = (gos_rgb*)malloc(size * sizeof(gos_rgb));
+  funres = gradient->gradient != NULL;
+  gradient->count = funres ? size : 0;
+  return funres;
+}
+
+void gos_color_free_rgb_gradient(gos_rgb_gradient* gradient) {
+  if (gradient != NULL && gradient->gradient != NULL) {
+    free(gradient->gradient);
+    gradient->gradient = NULL;
+    gradient->count = 0;
+  }
 }
 
 double gos_color_min_f(double a, double b, double c) {
@@ -65,7 +82,7 @@ void gos_color_s_rgb_fa(gos_color* c, gos_color* i) {
   c->c = gos_color_s_rgb_f(i->c);
 }
 
-void gos_color_s_rgb_ia(gos_color* c, gos_color_rgb* rgb) {
+void gos_color_s_rgb_ia(gos_color* c, gos_rgb* rgb) {
   assert(c != NULL);
   assert(rgb != NULL);
   c->a = gos_color_s_rgb_i((double)rgb->r);
@@ -73,7 +90,7 @@ void gos_color_s_rgb_ia(gos_color* c, gos_color_rgb* rgb) {
   c->c = gos_color_s_rgb_i((double)rgb->b);
 }
 
-void gos_color_normalize_rgb(gos_color* normalized, gos_color_rgb* rgb) {
+void gos_color_normalize_rgb(gos_color* normalized, gos_rgb* rgb) {
   assert(normalized != NULL);
   assert(rgb != NULL);
   normalized->a = GOS_COLOR_NORMALIZE(rgb->r);
@@ -81,7 +98,7 @@ void gos_color_normalize_rgb(gos_color* normalized, gos_color_rgb* rgb) {
   normalized->c = GOS_COLOR_NORMALIZE(rgb->b);
 }
 
-void gos_color_denormalize_rgb(gos_color_rgb* rgb, gos_color* normalized) {
+void gos_color_denormalize_rgb(gos_rgb* rgb, gos_color* normalized) {
   assert(normalized != NULL);
   assert(rgb != NULL);
   rgb->r = GOS_COLOR_DENORMALIZE(normalized->a);
@@ -104,9 +121,9 @@ void gos_color_interpolate_linear(
 
 /* See https://stackoverflow.com/questions/22607043/color-gradient-algorithm */
 void gos_color_perceptual_steps(
-  gos_color_rgb** crgbo,
-  gos_color_rgb* crgb1,
-  gos_color_rgb* crgb2,
+  gos_rgb* crgbo,
+  gos_rgb* crgb1,
+  gos_rgb* crgb2,
   double gamma,
   int steps) {
   int i;
@@ -132,8 +149,29 @@ void gos_color_perceptual_steps(
       c.c = intensity * c.c / sum;
     }
     gos_color_s_rgb_fa(&s, &c);
-    gos_color_denormalize_rgb(*(crgbo++), &s);
+    gos_color_denormalize_rgb(crgbo++, &s);
   }
+}
+
+bool gos_color_create_rgb_gradient(
+  gos_rgb_gradient* gradient,
+  gos_rgb* stop,
+  int* size,
+  int count,
+  double gamma) {
+  int i, total = 0;
+  gos_rgb* rgbat;
+  for (i = 0; i < count - 1; i++) {
+    total += size[i];
+  }
+  if (gos_color_initialize_rgb_gradient(gradient, total)) {
+    rgbat = gradient->gradient;
+    for (i = 0; i < count - 1; i++) {
+      gos_color_perceptual_steps(rgbat, stop + i, stop + i + 1, gamma, *size++);
+    }
+    return true;
+  }
+  return false;
 }
 
 void gos_color_rgb_to_hsl(

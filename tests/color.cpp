@@ -5,13 +5,14 @@
 #include <gos/interpolate.h>
 
 #define GOS_COLOR_UNIT_TEST_COUNT 64
+#define GOS_COLOR_UNIT_TEST_STOP_COUNT 6
 
 namespace gos {
 namespace color {
 
 TEST(GosColorTest, Assign) {
   gos_color c;
-  gos_color_rgb rgb;
+  gos_rgb rgb;
 
   gos_color_assign(&c, 0.1, 0.2, 0.3);
   EXPECT_DOUBLE_EQ(0.1, c.a);
@@ -225,7 +226,7 @@ TEST(GosColorTest, SRGBia) {
   double xi, xj, xk, yi, yj, yk;
   int i, j, k;
   gos_color y;
-  gos_color_rgb x;
+  gos_rgb x;
 
   for (i = 0; i < Max; i++) {
     for (j = 0; j < Max; j++) {
@@ -253,7 +254,7 @@ TEST(GosColorTest, Normalize) {
   int i, j, k;
   double n;
   gos_color c;
-  gos_color_rgb rgb;
+  gos_rgb rgb;
 
   for (i = 0; i < Max; i++) {
     n = GOS_COLOR_NORMALIZE(i);
@@ -284,7 +285,7 @@ TEST(GosColorTest, Denormalize) {
   double r, ri, rj, rk;
   uint8_t u;
   gos_color c;
-  gos_color_rgb rgb;
+  gos_rgb rgb;
 
   for (i = 0; i < Max; i++) {
     r = (double)i / (double)Max;
@@ -339,10 +340,9 @@ TEST(GosColorTest, Interpolate) {
 TEST(GosColorTest, PerceptualSteps) {
   const double Gamma = GOS_COLOR_GAMMA;
   const int Count = GOS_COLOR_UNIT_TEST_COUNT;
-  gos_color_rgb** c;
-  gos_color_rgb** ca;
-  gos_color_rgb c1, c2;
-  bool go = true;
+  gos_rgb c[GOS_COLOR_UNIT_TEST_COUNT];
+  gos_rgb* ca;
+  gos_rgb c1, c2;
   int i;
 
   /* Dark blue */
@@ -355,43 +355,56 @@ TEST(GosColorTest, PerceptualSteps) {
   c2.g = 0xec;
   c2.b = 0x04;
 
-  c = (gos_color_rgb**)calloc(Count, sizeof(gos_color_rgb*));
-  EXPECT_FALSE(c == NULL);
+  gos_color_perceptual_steps(c, &c1, &c2, Gamma, Count);
+  ca = c;
+  for (i = 0; i < Count; i++) {
+    EXPECT_LE(c1.r, ca->r);
+    EXPECT_GE(c2.r, ca->r);
 
-  if (c != NULL) {
-    for (i = 0; i < Count; i++) {
-      c[i] = (gos_color_rgb*)calloc(1, sizeof(gos_color_rgb));
-      EXPECT_FALSE(c[i] == NULL);
-      if (c[i] == NULL) {
-        go = false;
-        break;
-      }
-    }
+    EXPECT_LE(c1.g, ca->g);
+    EXPECT_GE(c2.g, ca->g);
 
-    if (go) {
-      gos_color_perceptual_steps(c, &c1, &c2, Gamma, Count);
-      ca = c;
-      for (i = 0; i < Count; i++) {
-        EXPECT_LE(c1.r, (*ca)->r);
-        EXPECT_GE(c2.r, (*ca)->r);
-
-        EXPECT_LE(c1.g, (*ca)->g);
-        EXPECT_GE(c2.g, (*ca)->g);
-
-        EXPECT_LE(c2.b, (*ca)->b);
-        EXPECT_GE(c1.b, (*ca)->b);
-        ca++;
-      }
-    }
-
-    for (i = 0; i < Count; i++) {
-      if (c[i] != NULL) {
-        free(c[i]);
-      }
-    }
-
-    free(c);
+    EXPECT_LE(c2.b, ca->b);
+    EXPECT_GE(c1.b, ca->b);
+    ca++;
   }
+}
+
+TEST(GosColorTest, CreateGradient) {
+  int gradientsize[GOS_COLOR_UNIT_TEST_STOP_COUNT - 1];
+  gos_rgb stops[GOS_COLOR_UNIT_TEST_STOP_COUNT];
+  gos_rgb* rgbat = stops;
+  gos_rgb_gradient gradient;
+  int* gsat;
+  bool cr;
+
+  gos_color_assign_rgb32(rgbat++, 0x07049b);  /* Dark blue */
+  gos_color_assign_rgb32(rgbat++, 0x02f7f3);  /* Cyan */
+  gos_color_assign_rgb32(rgbat++, 0x09f725);  /* Green */
+  gos_color_assign_rgb32(rgbat++, 0xf4ec04);  /* Yellow */
+  gos_color_assign_rgb32(rgbat++, 0xf79d01);  /* Orange */
+  gos_color_assign_rgb32(rgbat++, 0x8c0101);  /* Dark red */
+
+  gsat = gradientsize;
+  *gsat++ = 10;
+  *gsat++ = 20;
+  *gsat++ = 30;
+  *gsat++ = 40;
+  *gsat++ = 50;
+
+  cr = gos_color_create_rgb_gradient(
+    &gradient,
+    stops,
+    gradientsize,
+    GOS_COLOR_UNIT_TEST_STOP_COUNT,
+    GOS_COLOR_GAMMA);
+  EXPECT_TRUE(cr);
+  EXPECT_FALSE(gradient.gradient == NULL);
+  EXPECT_EQ(10 + 20 + 30 + 40 + 50, gradient.count);
+
+  gos_color_free_rgb_gradient(&gradient);
+  EXPECT_TRUE(gradient.gradient == NULL);
+  EXPECT_EQ(0, gradient.count);
 }
 
 TEST(GosColorTest, HSL) {
