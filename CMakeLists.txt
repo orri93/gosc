@@ -23,7 +23,6 @@ set(GOS_BUILD_NUMBER "0" CACHE STRING "The build number")
 set(gos_c_library_target gosc)
 
 if (BUILD_WITH_EMSCRIPTEN)
-  set(gos_c_wasm_library_target goscwasm)
   set(EMSCRIPTEN_ROOT $ENV{EMSDK}/upstream/emscripten
     CACHE STRING "Emscripten path")
   set(CMAKE_TOOLCHAIN_FILE
