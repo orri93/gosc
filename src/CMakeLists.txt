@@ -2,8 +2,9 @@ list(APPEND gos_c_library_source
   interpolate.c
   geometry.c
   signal.c
+  noise.c
   color.c
-  noise.c)
+  data.c)
 
 list(APPEND gos_c_library_definitions
 # _CRT_SECURE_NO_WARNINGS
@@ -58,3 +59,5 @@ install(TARGETS ${gos_c_library_target}
   LIBRARY DESTINATION lib
   PUBLIC_HEADER DESTINATION include/gos
   ARCHIVE DESTINATION lib)
+
+export(TARGETS ${gos_c_library_target} FILE gosc-targets.cmake)

@@ -2,7 +2,6 @@
 #include <gmock/gmock.h>
 
 #include <gos/color.h>
-#include <gos/interpolate.h>
 
 #define GOS_COLOR_UNIT_TEST_COUNT 64
 #define GOS_COLOR_UNIT_TEST_STOP_COUNT 6

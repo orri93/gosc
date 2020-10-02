@@ -167,7 +167,9 @@ bool gos_color_create_rgb_gradient(
   if (gos_color_initialize_rgb_gradient(gradient, total)) {
     rgbat = gradient->gradient;
     for (i = 0; i < count - 1; i++) {
-      gos_color_perceptual_steps(rgbat, stop + i, stop + i + 1, gamma, *size++);
+      gos_color_perceptual_steps(rgbat, stop + i, stop + i + 1, gamma, *size);
+      rgbat += *size;
+      size++;
     }
     return true;
   }

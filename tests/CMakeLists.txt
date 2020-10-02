@@ -9,8 +9,9 @@ list(APPEND gos_c_gos_test_source
   interpolate.cpp
   geometry.cpp
   signal.cpp
+  noise.cpp
   color.cpp
-  noise.cpp)
+  data.cpp)
 
 #list(APPEND gos_c_gos_test_definitions
 #  _CRT_SECURE_NO_WARNINGS)
