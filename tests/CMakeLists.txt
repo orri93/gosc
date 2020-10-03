@@ -33,7 +33,8 @@ target_include_directories(${gos_c_gos_test_target} PUBLIC
 
 target_link_libraries(${gos_c_gos_test_target}
   ${gos_experimental_gtest_libraries}
-  ${gos_c_library_target})
+  ${gos_c_library_target}
+  m)
 
 #if(CLANG_TIDY_EXE)
 #  set_target_properties(${gos_c_gos_test_target} PROPERTIES
