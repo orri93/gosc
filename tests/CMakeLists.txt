@@ -20,6 +20,14 @@ list(APPEND gos_c_gos_test_include
   ${gos_experimental_gtest_include}
   ${gos_c_library_include})
 
+list(APPEND gos_c_gos_test_libraries
+  ${gos_experimental_gtest_libraries}
+  ${gos_c_library_target})
+
+if (HAVE_LIB_M)
+  list(APPEND gos_c_gos_test_libraries m)
+endif (HAVE_LIB_M)
+
 add_executable(${gos_c_gos_test_target}
   ${gos_c_gos_test_source})
 
@@ -32,9 +40,7 @@ target_include_directories(${gos_c_gos_test_target} PUBLIC
   ${gos_c_gos_test_include})
 
 target_link_libraries(${gos_c_gos_test_target}
-  ${gos_experimental_gtest_libraries}
-  ${gos_c_library_target}
-  m)
+  ${gos_c_gos_test_libraries})
 
 #if(CLANG_TIDY_EXE)
 #  set_target_properties(${gos_c_gos_test_target} PROPERTIES
