@@ -39,8 +39,14 @@ if (gos_c_library_public_header)
 endif ()
 
 if (BUILD_WITH_EMSCRIPTEN)
+  if (GOS_EM_ASSERTIONS)
+    set(em_assertions 1)
+  else ()
+    set(em_assertions 0)
+  endif ()
   set(EMCC_ARGS
     -I${gos_c_source_include} -I${gos_c_binary_include}
+    -s ASSERTIONS=${em_assertions}
     -O3)
   list(APPEND gos_c_wasm_library_source ${gos_c_library_source})
   list(TRANSFORM gos_c_wasm_library_source PREPEND "${CMAKE_CURRENT_SOURCE_DIR}/")

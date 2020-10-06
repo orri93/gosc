@@ -5,18 +5,26 @@ project(GosC
   DESCRIPTION "Geirmundur Orri Sigurdsson C Library"
   LANGUAGES C CXX)
 
+# Build Options
 option(BUILD_TESTS "Build tests" OFF)
 option(BUILD_WITH_EMSCRIPTEN "Build a Web Assembly Library with emscripten" OFF)
 option(BUILD_SHARED_LIBS "Build using shared libraries" OFF)
+
+# Tidy Options
 option(CLANG_TIDY_FIX_ERRORS
   "Perform fixes with Clang-Tidy even if compilation errors were found" OFF)
 option(CLANG_TIDY_FIX "Perform fixes with Clang-Tidy" OFF)
 option(CLANG_TIDY "Perform Clang-Tidy check" OFF)
 
-option(GOS_USE_GTEST_DISCOVER "Use CMake Google Test descovery for unit tests" OFF)
-option(GOS_USE_GTEST_PACKAGE "Use CMake GTest Package for unit tests" OFF)
-
+# GOS Options
 option(GOS_PERLIN "Perlin noise" OFF)
+option(GOS_EM_ASSERTIONS "EMCC ASSERTIONS" OFF)
+
+# GOS Test Options
+option(GOS_USE_GTEST_DISCOVER
+  "Use CMake Google Test descovery for unit tests" OFF)
+option(GOS_USE_GTEST_PACKAGE
+  "Use CMake GTest Package for unit tests" OFF)
 
 set(GOS_BUILD_NUMBER "0" CACHE STRING "The build number")
 
