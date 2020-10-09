@@ -56,6 +56,10 @@ void gos_color_interpolate_linear(
   gos_color* c2,
   double f);
 
+/* Color gradient algorithm
+ * https://stackoverflow.com/questions/22607043/color-gradient-algorithm
+ * https://github.com/rofrol/color-gradient-algorithm
+ */
 void gos_color_perceptual_steps(
   gos_rgb* crgbo,
   gos_rgb* crgb1,
