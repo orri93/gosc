@@ -27,6 +27,7 @@ option(GOS_USE_GTEST_PACKAGE
   "Use CMake GTest Package for unit tests" OFF)
 
 set(GOS_BUILD_NUMBER "0" CACHE STRING "The build number")
+set(GOS_WASM_OUTPUT "libgosc.bc" CACHE STRING "The Web Assembly Output")
 
 set(gos_c_library_target gosc)
 
@@ -34,8 +35,11 @@ include(CheckLibraryExists)
 CHECK_LIBRARY_EXISTS(m sin "" HAVE_LIB_M)
 
 if (BUILD_WITH_EMSCRIPTEN)
-  set(EMSCRIPTEN_ROOT $ENV{EMSDK}/upstream/emscripten
-    CACHE STRING "Emscripten path")
+  if (DEFINED ENV{EMSDK})
+    set(EMSCRIPTEN_ROOT $ENV{EMSDK}/upstream/emscripten)
+  else ()
+    set(EMSCRIPTEN_ROOT "emsdk/upstream/emscripten" CACHE PATH "Emscripten path")
+  endif ()
   set(CMAKE_TOOLCHAIN_FILE
     ${EMSCRIPTEN_ROOT}/cmake/Modules/Platform/Emscripten.cmake)
 endif ()
