@@ -35,6 +35,16 @@ typedef struct gos_vector {
   int count;
 } gos_vector;
 
+typedef struct gos_point_2d_vector {
+  gos_point_2d* points;
+  int count;
+} gos_point_2d_vector;
+
+typedef struct gos_point_3d_vector {
+  gos_point_3d* points;
+  int count;
+} gos_point_3d_vector;
+
 typedef struct gos_matrix {
   double** data;
   int countd1;
