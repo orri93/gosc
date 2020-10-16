@@ -2,11 +2,18 @@
 #define GOS_TYPES_H_
 
 #include <stdint.h>
+#include <time.h>
 
 typedef struct gos_point_2d {
   double x;
   double y;
 } gos_point_2d;
+
+typedef struct gos_point_3d {
+  double x;
+  double y;
+  double z;
+} gos_point_3d;
 
 typedef struct gos_range_1d {
   double from;
@@ -28,11 +35,26 @@ typedef struct gos_vector {
   int count;
 } gos_vector;
 
+typedef struct gos_point_2d_vector {
+  gos_point_2d* points;
+  int count;
+} gos_point_2d_vector;
+
+typedef struct gos_point_3d_vector {
+  gos_point_3d* points;
+  int count;
+} gos_point_3d_vector;
+
 typedef struct gos_matrix {
   double** data;
   int countd1;
   int countd2;
 } gos_matrix;
+
+typedef struct gos_time_series {
+  time_t time;
+  void* data;
+} gos_time_series;
 
 typedef struct gos_color {
   double a;
