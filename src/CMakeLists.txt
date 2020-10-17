@@ -38,7 +38,7 @@ if (gos_c_library_public_header)
     "${gos_c_library_public_header}")
 endif ()
 
-if (BUILD_WITH_EMSCRIPTEN)
+if (GOS_C_EMSCRIPTEN_BUILD)
   if (GOS_EM_ASSERTIONS)
     set(em_assertions 1)
   else ()
@@ -51,19 +51,13 @@ if (BUILD_WITH_EMSCRIPTEN)
   list(APPEND gos_c_wasm_library_source ${gos_c_library_source})
   list(TRANSFORM gos_c_wasm_library_source PREPEND "${CMAKE_CURRENT_SOURCE_DIR}/")
   add_custom_command(
-    #OUTPUT libgosc.bc
     TARGET ${gos_c_library_target} POST_BUILD
     COMMAND emcc ${gos_c_wasm_library_source} ${EMCC_ARGS} -o ${GOS_WASM_OUTPUT}
     DEPENDS ${gos_c_library_source} ${gos_c_library_public_header}
     COMMENT "Building GOS C Web Assembly Library"
     VERBATIM)
-  #add_library(${gos_c_wasm_library_target} INTERFACE)
-  #add_custom_target(${gos_c_wasm_library_target} ALL DEPENDS libgosc.bc)
-  #install(TARGETS ${gos_c_wasm_library_target} LIBRARY DESTINATION lib)
-  #install(FILES "${CMAKE_CURRENT_BINARY_DIR}/libgosc.bc" DESTINATION lib)
   set_target_properties(${gos_c_library_target} PROPERTIES
     RESOURCE "${CMAKE_CURRENT_BINARY_DIR}/${GOS_WASM_OUTPUT}")
-  #export(TARGETS ${gos_c_wasm_library_target} FILE gosc-wasm-targets.cmake)
 endif ()
 
 install(TARGETS ${gos_c_library_target}

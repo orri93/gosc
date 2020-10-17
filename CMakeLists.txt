@@ -7,7 +7,7 @@ project(GosC
 
 # Build Options
 option(BUILD_TESTS "Build tests" OFF)
-option(BUILD_WITH_EMSCRIPTEN "Build a Web Assembly Library with emscripten" OFF)
+option(GOS_C_EMSCRIPTEN_BUILD "Build a Web Assembly Library with emscripten" OFF)
 option(BUILD_SHARED_LIBS "Build using shared libraries" OFF)
 
 # Tidy Options
@@ -34,14 +34,14 @@ set(gos_c_library_target gosc)
 include(CheckLibraryExists)
 CHECK_LIBRARY_EXISTS(m sin "" HAVE_LIB_M)
 
-if (BUILD_WITH_EMSCRIPTEN)
+if (GOS_C_EMSCRIPTEN_BUILD)
   if (DEFINED ENV{EMSDK})
-    set(EMSCRIPTEN_ROOT $ENV{EMSDK}/upstream/emscripten)
+    set(GOS_C_EMSCRIPTEN_ROOT $ENV{EMSDK}/upstream/emscripten)
   else ()
-    set(EMSCRIPTEN_ROOT "emsdk/upstream/emscripten" CACHE PATH "Emscripten path")
+    set(GOS_C_EMSCRIPTEN_ROOT "emsdk/upstream/emscripten" CACHE PATH "Emscripten path")
   endif ()
   set(CMAKE_TOOLCHAIN_FILE
-    ${EMSCRIPTEN_ROOT}/cmake/Modules/Platform/Emscripten.cmake)
+    ${GOS_C_EMSCRIPTEN_ROOT}/cmake/Modules/Platform/Emscripten.cmake)
 endif ()
 
 set(TIDY_ARGUMENTS "-checks=*,-clang-analyzer-alpha.* "
