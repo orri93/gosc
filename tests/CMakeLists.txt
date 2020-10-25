@@ -7,7 +7,9 @@ set(gos_c_gos_test_name gosctest)
 
 list(APPEND gos_c_gos_test_source
   interpolate.cpp
+  statistics.cpp
   geometry.cpp
+  dynamic.cpp
   signal.cpp
   noise.cpp
   color.cpp

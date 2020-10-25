@@ -1,6 +1,8 @@
 list(APPEND gos_c_library_source
   interpolate.c
+  statistics.c
   geometry.c
+  dynamic.c
   signal.c
   noise.c
   color.c

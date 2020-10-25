@@ -73,4 +73,11 @@ typedef struct gos_rgb_gradient {
   int count;
 } gos_rgb_gradient;
 
+/* Dynamic */
+typedef struct gos_dynamic_double_array {
+  double* items;
+  size_t used;
+  size_t size;
+} gos_dynamic_double_array;
+
 #endif
