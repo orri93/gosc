@@ -6,6 +6,7 @@ list(APPEND gos_c_library_source
   signal.c
   noise.c
   color.c
+  text.c
   data.c)
 
 list(APPEND gos_c_library_definitions

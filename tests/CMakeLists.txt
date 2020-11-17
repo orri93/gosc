@@ -13,6 +13,7 @@ list(APPEND gos_c_gos_test_source
   signal.cpp
   noise.cpp
   color.cpp
+  text.cpp
   data.cpp)
 
 #list(APPEND gos_c_gos_test_definitions
