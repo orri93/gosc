@@ -5,7 +5,7 @@
 int gos_text_are_all_char_digits(const char* text) {
   int result = 1;
   char* at;
-  for (at = text; *at != '\0' && result != 0; at++) {
+  for (at = ((char*)text); *at != '\0' && result != 0; at++) {
     result *= isdigit(*at);
   }
   return result;
