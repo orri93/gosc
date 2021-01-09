@@ -7,6 +7,7 @@ project(GosC
 
 # Build Options
 option(BUILD_TESTS "Build tests" OFF)
+option(BUILD_EXAMPLES "Build examples" OFF)
 option(GOS_C_EMSCRIPTEN_BUILD "Build a Web Assembly Library with emscripten" OFF)
 option(BUILD_SHARED_LIBS "Build using shared libraries" OFF)
 
@@ -178,6 +179,14 @@ if (BUILD_TESTS)
   add_subdirectory(tests)
 endif (BUILD_TESTS)
 
+if (BUILD_EXAMPLES)
+  set(gos_c_xopt_dir "${CMAKE_CURRENT_SOURCE_DIR}/extern/xopt")
+  set(gos_c_xopt_src "${gos_c_xopt_dir}/xopt.c")
+  list(APPEND gos_c_xopt_include ${gos_c_xopt_dir})
+  add_subdirectory(examples)
+endif (BUILD_EXAMPLES)
+
+
 message(STATUS "")
 message(STATUS "Geirmundur Orri Sigurdsson C Library ${PROJECT_VERSION} BUILD SUMMARY")
 message(STATUS "  Install prefix            : ${CMAKE_INSTALL_PREFIX}")
@@ -212,4 +221,8 @@ message(STATUS "Building Tests")
 if (MSVC_VERSION)
 message(STATUS "  GTest Force Shared CRT    : ${gtest_force_shared_crt}")
 endif ()
+endif ()
+
+if (BUILD_EXAMPLES)
+message(STATUS "Building Examples")
 endif ()
