@@ -3,9 +3,11 @@ list(APPEND gos_c_library_source
   statistics.c
   geometry.c
   dynamic.c
+  screen.c
   signal.c
   noise.c
   color.c
+  scale.c
   text.c
   data.c)
 

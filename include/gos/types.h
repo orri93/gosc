@@ -80,4 +80,16 @@ typedef struct gos_dynamic_double_array {
   size_t size;
 } gos_dynamic_double_array;
 
+/* Scale */
+typedef struct gos_scale {
+  gos_range_1d domain;
+  gos_range_1d range;
+} gos_scale;
+
+/* Screen */
+typedef struct gos_screen {
+  int width;
+  int height;
+} gos_screen;
+
 #endif

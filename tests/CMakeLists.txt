@@ -10,9 +10,11 @@ list(APPEND gos_c_gos_test_source
   statistics.cpp
   geometry.cpp
   dynamic.cpp
+  screen.cpp
   signal.cpp
   noise.cpp
   color.cpp
+  scale.cpp
   text.cpp
   data.cpp)
 
