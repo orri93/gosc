@@ -7,6 +7,8 @@ extern "C" {
 
 int gos_text_are_all_char_digits(const char* text);
 int gos_text_are_all_char_digits_l(const char* text, int count);
+int gos_text_are_all_char_digits_or_period(const char* text);
+int gos_text_are_all_char_digits_or_period_l(const char* text, int count);
 
 #ifdef __cplusplus
 }
