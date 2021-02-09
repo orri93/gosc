@@ -24,6 +24,7 @@ extern "C" {
 void gos_color_assign(gos_color* co, double a, double b, double c);
 void gos_color_assign_rgb(gos_rgb* co, uint8_t r, uint8_t g, uint8_t b);
 void gos_color_assign_rgb32(gos_rgb* co, uint32_t rgb);
+bool gos_color_assign_text(gos_rgb* co, char* text);
 
 bool gos_color_initialize_rgb_gradient(gos_rgb_gradient* gradient, int size);
 void gos_color_free_rgb_gradient(gos_rgb_gradient* gradient);

@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <assert.h>
+#include <string.h>
 #include <math.h>
 
 #include <gos/color.h>
@@ -23,6 +24,24 @@ void gos_color_assign_rgb32(gos_rgb* co, uint32_t rgb) {
     (rgb & 0xff0000) >> 16,
     (rgb & 0xff00) >> 8,
     rgb & 0xff);
+}
+bool gos_color_assign_text(gos_rgb* co, char* text) {
+  /*
+   * For information about Convert hex string to integer see
+   * https://stackoverflow.com/questions/10156409/convert-hex-string-char-to-int
+   */
+  long n;
+  size_t l = strlen(text);
+  if (l > 0 && *text == '#') {
+    text++;
+    l--;
+  }
+  if (l > 0) {
+    n = strtol(text, NULL, 16);
+    gos_color_assign_rgb32(co, (uint32_t)n);
+    return true;
+  }
+  return false;
 }
 
 bool gos_color_initialize_rgb_gradient(gos_rgb_gradient* gradient, int size) {

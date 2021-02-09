@@ -36,6 +36,15 @@ TEST(GosColorTest, Assign) {
   EXPECT_EQ(0xf4, rgb.r);
   EXPECT_EQ(0xec, rgb.g);
   EXPECT_EQ(0x04, rgb.b);
+
+  gos_color_assign_text(&rgb, "#07049b"); /* Dark blue */
+  EXPECT_EQ(0x07, rgb.r);
+  EXPECT_EQ(0x04, rgb.g);
+  EXPECT_EQ(0x9b, rgb.b);
+  gos_color_assign_text(&rgb, "f4ec04"); /* Yellow */
+  EXPECT_EQ(0xf4, rgb.r);
+  EXPECT_EQ(0xec, rgb.g);
+  EXPECT_EQ(0x04, rgb.b);
 }
 
 TEST(GosColorTest, IsBlack) {
