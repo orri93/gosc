@@ -25,19 +25,20 @@ void gos_color_assign_rgb32(gos_rgb* co, uint32_t rgb) {
     (rgb & 0xff00) >> 8,
     rgb & 0xff);
 }
-bool gos_color_assign_text(gos_rgb* co, char* text) {
+bool gos_color_assign_text(gos_rgb* co, const char* text) {
   /*
    * For information about Convert hex string to integer see
    * https://stackoverflow.com/questions/10156409/convert-hex-string-char-to-int
    */
   long n;
+  char* t = (char*)text;
   size_t l = strlen(text);
   if (l > 0 && *text == '#') {
-    text++;
+    t++;
     l--;
   }
   if (l > 0) {
-    n = strtol(text, NULL, 16);
+    n = strtol(t, NULL, 16);
     gos_color_assign_rgb32(co, (uint32_t)n);
     return true;
   }
