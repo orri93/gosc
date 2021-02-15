@@ -14,6 +14,15 @@ TEST(GosTextTest, AreAllCharDigits) {
 
   areDigits = gos_text_are_all_char_digits("01bb");
   EXPECT_TRUE(areDigits == 0);
+
+  areDigits = gos_text_are_all_char_digits("0.123456789");
+  EXPECT_TRUE(areDigits == 0);
+
+  areDigits = gos_text_are_all_char_digits_or_period("0.123456789");
+  EXPECT_TRUE(areDigits != 0);
+
+  areDigits = gos_text_are_all_char_digits_or_period("0.1bb");
+  EXPECT_TRUE(areDigits == 0);
 }
 
 } // namespace signal
