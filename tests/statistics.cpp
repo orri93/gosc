@@ -9,7 +9,6 @@ namespace gos {
 namespace statistics {
 
 TEST(GosStatisticsTest, Sum) {
-  size_t n;
   double sum;
   double values[GOS_STATISTICS_TEST_SIZE] = { 1.1, 2.2, 3.3, 4.4 };
   sum = gos_statistics_sum(values, GOS_STATISTICS_TEST_SIZE);
@@ -17,7 +16,6 @@ TEST(GosStatisticsTest, Sum) {
 }
 
 TEST(GosStatisticsTest, Sd) {
-  size_t n;
   double sum, average, sd;
   double values[GOS_STATISTICS_TEST_SIZE] = { 1.1, 2.2, 3.3, 4.4 };
 
