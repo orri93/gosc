@@ -1,6 +1,7 @@
 #ifndef GOS_TYPES_H_
 #define GOS_TYPES_H_
 
+#include <stddef.h>
 #include <stdint.h>
 #include <time.h>
 
