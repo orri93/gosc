@@ -8,7 +8,7 @@ namespace screen {
 
 TEST(GosScreenTest, Index) {
   gos_screen screen;
-  double i;
+  size_t i;
 
   screen.width = 600;
   screen.height = 400;
