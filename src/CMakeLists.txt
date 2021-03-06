@@ -3,6 +3,7 @@ list(APPEND gos_c_library_source
   statistics.c
   geometry.c
   dynamic.c
+  nearest.c
   screen.c
   signal.c
   noise.c

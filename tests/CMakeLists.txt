@@ -10,6 +10,7 @@ list(APPEND gos_c_gos_test_source
   statistics.cpp
   geometry.cpp
   dynamic.cpp
+  nearest.cpp
   screen.cpp
   signal.cpp
   noise.cpp
