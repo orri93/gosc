@@ -63,7 +63,7 @@ set(gos_c_binary_include "${CMAKE_CURRENT_BINARY_DIR}/include")
 list(APPEND gos_c_include
   ${gos_c_source_include}
   ${gos_c_binary_include})
-
+  
 set(CMAKE_PLATFORM_INDEPENDENT_CODE ON)
 
 string(TIMESTAMP GOS_CURRENT_YEAR "%Y" UTC)
@@ -73,14 +73,20 @@ set(GOS_LEGALCOPYRIGHT "Copyright (C) ${GOS_CURRENT_YEAR} ${GOS_COMPANYNAME}")
 list(APPEND gos_c_library_public_header
   "${CMAKE_CURRENT_BINARY_DIR}/include/gos/version.h")
 list(APPEND gos_c_library_public_header
+  "${CMAKE_CURRENT_SOURCE_DIR}/include/gos/data.h"
+  "${CMAKE_CURRENT_SOURCE_DIR}/include/gos/text.h"
   "${CMAKE_CURRENT_SOURCE_DIR}/include/gos/line.h"
   "${CMAKE_CURRENT_SOURCE_DIR}/include/gos/types.h"
+  "${CMAKE_CURRENT_SOURCE_DIR}/include/gos/scale.h"
   "${CMAKE_CURRENT_SOURCE_DIR}/include/gos/color.h"
   "${CMAKE_CURRENT_SOURCE_DIR}/include/gos/noise.h"
-  "${CMAKE_CURRENT_SOURCE_DIR}/include/gos/perlin.h"
+# "${CMAKE_CURRENT_SOURCE_DIR}/include/gos/perlin.h"
   "${CMAKE_CURRENT_SOURCE_DIR}/include/gos/signal.h"
+  "${CMAKE_CURRENT_SOURCE_DIR}/include/gos/screen.h"
   "${CMAKE_CURRENT_SOURCE_DIR}/include/gos/mapping.h"
+  "${CMAKE_CURRENT_SOURCE_DIR}/include/gos/dynamic.h"
   "${CMAKE_CURRENT_SOURCE_DIR}/include/gos/geometry.h"
+  "${CMAKE_CURRENT_SOURCE_DIR}/include/gos/statistics.h"
   "${CMAKE_CURRENT_SOURCE_DIR}/include/gos/interpolate.h")
 
 if(CLANG_TIDY)
