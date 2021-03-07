@@ -84,6 +84,7 @@ list(APPEND gos_c_library_public_header
   "${CMAKE_CURRENT_SOURCE_DIR}/include/gos/signal.h"
   "${CMAKE_CURRENT_SOURCE_DIR}/include/gos/screen.h"
   "${CMAKE_CURRENT_SOURCE_DIR}/include/gos/mapping.h"
+  "${CMAKE_CURRENT_SOURCE_DIR}/include/gos/nearest.h"
   "${CMAKE_CURRENT_SOURCE_DIR}/include/gos/dynamic.h"
   "${CMAKE_CURRENT_SOURCE_DIR}/include/gos/geometry.h"
   "${CMAKE_CURRENT_SOURCE_DIR}/include/gos/statistics.h"
