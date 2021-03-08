@@ -51,13 +51,21 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
+# User files
+*.vcxproj.user
+
 # Visual Studio
-CMakeSettings.json
+[Dd]ebug/
+[Rr]elease/
 out/
 .vs/
+x64/
 
 # Visual Studio Code
 .vscode/
+
+# CMake
+CMakeSettings.json
 
 # Build
 /build/

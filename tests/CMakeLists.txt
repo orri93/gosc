@@ -23,11 +23,11 @@ list(APPEND gos_c_gos_test_source
 #  _CRT_SECURE_NO_WARNINGS)
 
 list(APPEND gos_c_gos_test_include
-  ${gos_experimental_gtest_include}
-  ${gos_c_library_include})
+  ${gos_c_gtest_include}
+  ${gos_c_include})
 
 list(APPEND gos_c_gos_test_libraries
-  ${gos_experimental_gtest_libraries}
+  ${gos_c_gtest_libraries}
   ${gos_c_library_target})
 
 if (HAVE_LIB_M)

@@ -136,5 +136,6 @@ double gos_perlin_lerp(double a0, double a1, double w) {
 /* Computes the dot product of the distance and gradient vectors as double */
 double gos_perlin_dot_grid_gradient(int ix, int iy, double x, double y) {
   /* Precomputed (or otherwise) gradient vectors at each grid node */
+  return 0.0;
 }
 #endif

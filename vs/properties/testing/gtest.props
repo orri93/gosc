@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros">
+    <GoogleGoogleTestIncludeDir>$(SolutionDir)..\..\extern\googletest\googletest\include</GoogleGoogleTestIncludeDir>
+    <GoogleGoogleTestBuildDir>$(SolutionDir)..\..\extern\googletest\build\googlemock\gtest</GoogleGoogleTestBuildDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(GoogleGoogleMockIncludeDir);$(GoogleGoogleTestIncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>gtest.lib;gtest_main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(GoogleGoogleTestBuildDir)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <BuildMacro Include="GoogleGoogleTestIncludeDir">
+      <Value>$(GoogleGoogleTestIncludeDir)</Value>
+    </BuildMacro>
+    <BuildMacro Include="GoogleGoogleTestBuildDir">
+      <Value>$(GoogleGoogleTestBuildDir)</Value>
+    </BuildMacro>
+  </ItemGroup>
+</Project>
