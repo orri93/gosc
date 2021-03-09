@@ -8,8 +8,8 @@ project(GosC
 # Build Options
 option(BUILD_TESTS "Build tests" OFF)
 option(BUILD_EXAMPLES "Build examples" OFF)
-option(GOS_C_EMSCRIPTEN_BUILD "Build a Web Assembly Library with emscripten" OFF)
 option(BUILD_SHARED_LIBS "Build using shared libraries" OFF)
+option(GOS_C_EMSCRIPTEN_BUILD "Build a Web Assembly Library with emscripten" OFF)
 
 # Tidy Options
 option(CLANG_TIDY_FIX_ERRORS
@@ -20,6 +20,8 @@ option(CLANG_TIDY "Perform Clang-Tidy check" OFF)
 # GOS Options
 option(GOS_PERLIN "Perlin noise" OFF)
 option(GOS_EM_ASSERTIONS "EMCC ASSERTIONS" OFF)
+
+option(GOS_NEAREST_NEIGHBOR_TIME "Time Nearest Neighbor" OFF)
 
 # GOS Test Options
 option(GOS_USE_GTEST_DISCOVER

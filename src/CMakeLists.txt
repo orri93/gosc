@@ -16,6 +16,11 @@ list(APPEND gos_c_library_definitions
 # _CRT_SECURE_NO_WARNINGS
   _USE_MATH_DEFINES)
 
+if (GOS_NEAREST_NEIGHBOR_TIME)
+  list(APPEND gos_c_library_definitions
+    GOS_NEAREST_NEIGHBOR_TIME_)
+endif (GOS_NEAREST_NEIGHBOR_TIME)
+
 if (GOS_PERLIN)
   list(APPEND gos_c_library_source perlin.c)
   list(APPEND gos_c_library_definitions

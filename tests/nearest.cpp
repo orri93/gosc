@@ -30,6 +30,7 @@ TEST(GosNearestTest, Neighbor) {
   EXPECT_LT(0.0, result);
 }
 
+#ifdef GOSC_NEAREST_NEIGHBOR_TIME_
 TEST(GosNearestTest, TimeNeighbor) {
   time_t first, second, value;
   time_t result;
@@ -53,6 +54,7 @@ TEST(GosNearestTest, TimeNeighbor) {
   result = gos_nearest_neighbor_time(first, second, value);
   EXPECT_LT(0, result);
 }
+#endif
 
 }
 }
